@@ -1,0 +1,35 @@
+*,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  border-collapse: separate;
+  border-spacing: 0px;
+  background: rgb(255, 255, 255);
+  color: #000000;
+  border-radius: 5px;
+}
+th {
+  font-size: 18px;
+  padding: 5px;
+}
+td {
+  background: #ffffff;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.bg-coral {
+    background-color: rgb(112, 115, 133);
+}
+
+.bg-white {
+    background-color: white;
+}
