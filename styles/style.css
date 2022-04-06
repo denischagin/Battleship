@@ -41,10 +41,15 @@ td {
 }
 
 .first-screen {
-  display: flex;
+  display: inline-flex;
+  flex-direction: row;
+  word-spacing: 3px;
 }
 
 .text {
+  position: absolute;
+  left: 650px;
+  top: 50px;
   margin: 60px 20px;
   font-size: 30px;
 }
@@ -53,7 +58,8 @@ td {
   padding: 10px;
   height: 50px;
   margin-top: auto;
-  display: block;
+  margin-right: 1rem;
+  display: inline;
   font-size: 25px;
   border-radius: 10px;
   background-color: rgba(116, 243, 48, 0.4);
@@ -61,6 +67,21 @@ td {
 }
 
 .button:hover {
+  background-color: rgba(116, 243, 48, 0.2);
+}
+.button1 {
+  text-align: center;
+  padding: 10px;
+  height: 50px;
+  margin-top: auto;
+  display: inline;
+  font-size: 25px;
+  border-radius: 10px;
+  background-color: rgba(116, 243, 48, 0.4);
+  border: 3px solid rgba(116, 243, 48, 0.7);
+}
+
+.button1:hover {
   background-color: rgba(116, 243, 48, 0.2);
 }
 
