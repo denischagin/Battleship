@@ -2,15 +2,16 @@
 body {
   margin: 0;
   padding: 0;
+  font-family:sans-serif
 }
 
 table {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   border-collapse: separate;
   border-spacing: 0px;
   background: rgb(255, 255, 255);
   color: #000000;
   border-radius: 5px;
+  font-size: 28px;
 }
 th {
   font-size: 18px;
@@ -19,11 +20,11 @@ th {
 td {
   background: #ffffff;
   padding: 5px;
-  width: 30px;
-  height: 30px;
+  width: 33px;
+  height: 33px;
   text-align: center;
-  border: 1px solid black;
-  border-radius: 2px;
+  border: 0.5px solid black;
+  cursor: pointer;
 }
 
 .bg-coral {
@@ -32,4 +33,18 @@ td {
 
 .bg-white {
     background-color: white;
+}
+
+.first-table {
+  margin: 50px 100px
+}
+
+.first-screen {
+  display: flex
+}
+
+.text {
+  margin: 60px 20px;
+  font-size: 30px;
+  display: block;
 }
