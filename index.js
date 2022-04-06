@@ -3,6 +3,8 @@ const array = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К',]
 let shipCount = 0
 let countOfDecks = 1
 let arrayShips = []
+const matrixSecondPlayer = []
+const buttonSubmit = document.querySelector('.button')
 const textAboutShips = document.querySelector('.text')
 console.log(textAboutShips)
 const matrixFirstPlayer = [
@@ -68,13 +70,12 @@ const printField = (table) => {
             const td  = document.createElement('td')
             tr.appendChild(td)
         }
-        table.appendChild(tr)
+        table.insertAdjacentElement('afterbegin', tr)
     }
 }
 
-printField(firstTable)
-coloringField(matrixFirstPlayer)
-firstTable.addEventListener('click', (e) => {
+const inputShips = (e, matrixFirstPlayer) => 
+{
     let cell = e.target;
     if (cell.tagName.toLowerCase() != 'td') return;
     let i = cell.parentNode.rowIndex;
@@ -129,6 +130,8 @@ firstTable.addEventListener('click', (e) => {
     //     matrixFirstPlayer[i][k] = 0
     //     console.log('Нажата заполненная клетка')
     // } 
+    
+    // Если в поле запятая
     else if (matrixFirstPlayer[i][k] === ',') {
         if (countOfDecks  === 3) {
             return
@@ -177,7 +180,6 @@ firstTable.addEventListener('click', (e) => {
         while (textAboutShips.firstChild) {
             textAboutShips.firstElementChild.remove()
     }} catch (error ){
-        console.log(error)
     }
     if (1 - arrayShips.filter((el) => el === 4).length < 0) {
         textAboutShips.insertAdjacentHTML('afterbegin', `<p style='color : red'>Вы ввели много 4х палубных кораблей</p> <br>` )
@@ -193,13 +195,74 @@ firstTable.addEventListener('click', (e) => {
     }
     textAboutShips.insertAdjacentHTML('afterbegin', `
     <p>Вы сейчас вводите корабль с ${countOfDecks + 1} палубами</p> <br>
-    <p>Вам осталось ввести ${1 - arrayShips.filter((el) => el === 4).length >= 0 ? 1 - arrayShips.filter((el) => el === 4).length : 'неправильное количество'} корабль(ей) с 4 палубами</p> <br>
-    <p>Вам осталось ввести ${2 - arrayShips.filter((el) => el === 3).length >= 0 ? 2 - arrayShips.filter((el) => el === 3).length : 'неправильное количество'} корабль(ей) с 3 палубами</p> <br>
-    <p>Вам осталось ввести ${3 - arrayShips.filter((el) => el === 2).length >= 0 ? 3 - arrayShips.filter((el) => el === 2).length : 'неправильное количество'} корабль(ей) с 2 палубами</p> <br>
-    <p>Вам осталось ввести ${4 - arrayShips.filter((el) => el === 1).length >= 0 ? 4 - arrayShips.filter((el) => el === 1).length : 'неправильное количество'} корабль(ей) с 1 палубами</p> <br>
+    <p>Вам осталось ввести ${1 - arrayShips.filter((el) => el === 4).length >= 0 
+        ? 1 - arrayShips.filter((el) => el === 4).length : 'неправильное количество'} корабль(ей) с 4 палубами</p> <br>
+    <p>Вам осталось ввести ${2 - arrayShips.filter((el) => el === 3).length >= 0 
+        ? 2 - arrayShips.filter((el) => el === 3).length : 'неправильное количество'} корабль(ей) с 3 палубами</p> <br>
+    <p>Вам осталось ввести ${3 - arrayShips.filter((el) => el === 2).length >= 0 
+        ? 3 - arrayShips.filter((el) => el === 2).length : 'неправильное количество'} корабль(ей) с 2 палубами</p> <br>
+    <p>Вам осталось ввести ${4 - arrayShips.filter((el) => el === 1).length >= 0 
+        ? 4 - arrayShips.filter((el) => el === 1).length : 'неправильное количество'} корабль(ей) с 1 палубами</p> <br>
     `)
+    console.log(buttonSubmit)
+    document.querySelector('.button').addEventListener('click', () => {
+        if (arrayShips.length + 1 !== 10) {
+            return
+        }
+
+        if (shipCount !== 0) {
+            arrayShips.push(countOfDecks + 1)
+            console.log(arrayShips)
+        }
+
+        
+        countOfDecks = 0
+        // Заполнение точек и запятых вокруг
+        // Если стоит точка то мы не можем заполнять 
+        // Если запятая то можем
+        if (shipCount !== 0) {
+            for (let i = 0; i < 11; i++) {
+                for (let k = 0; k < 11; k++) {
+                    if (matrixFirstPlayer[i][k] === ',') {
+                        matrixFirstPlayer[i][k] = '.'
+                    }
+                }
+            }
+        }
+
+        if (matrixFirstPlayer[i-1][k] === '.') {
+            matrixFirstPlayer[i-1][k] = '.'
+        } else {matrixFirstPlayer[i-1][k] = ','}
+
+        if (matrixFirstPlayer[i][k-1] === '.') {
+            matrixFirstPlayer[i][k-1] = '.'
+        } else {matrixFirstPlayer[i][k-1] = ','}
+
+        if (matrixFirstPlayer[i+1][k] === '.') {
+            matrixFirstPlayer[i+1][k] = '.'
+        } else {matrixFirstPlayer[i+1][k] = ','}
+
+        if (matrixFirstPlayer[i][k+1] === '.') {
+            matrixFirstPlayer[i][k+1] = '.'
+        } else {matrixFirstPlayer[i][k+1] = ','}
+
+        matrixFirstPlayer[i][k] = 1
+        matrixFirstPlayer[i+1][k+1] = '.'
+        matrixFirstPlayer[i+1][k-1] = '.'
+        matrixFirstPlayer[i-1][k+1] = '.'
+        matrixFirstPlayer[i-1][k-1] = '.'
+        console.log(matrixFirstPlayer)
+        matrixSecondPlayer = Object.assign([], matrixFirstPlayer);
+        console.log(matrixSecondPlayer)
+    })
     console.log('Количество палуб - ', countOfDecks + 1)
     console.log(matrixFirstPlayer)
     coloringField(matrixFirstPlayer)      
   }
-)
+  
+
+
+printField(firstTable)
+coloringField(matrixFirstPlayer)
+firstTable.addEventListener('click', (e) => {inputShips(e, matrixFirstPlayer)})
+

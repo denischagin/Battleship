@@ -2,7 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family:sans-serif
+  font-family:sans-serif;
+  
 }
 
 table {
@@ -28,7 +29,7 @@ td {
 }
 
 .bg-coral {
-    background-color: rgb(112, 115, 133);
+    background-color: rgba(116, 243, 48, 0.4);
 }
 
 .bg-white {
@@ -40,11 +41,26 @@ td {
 }
 
 .first-screen {
-  display: flex
+  display: flex;
 }
 
 .text {
   margin: 60px 20px;
   font-size: 30px;
-  display: block;
 }
+.button {
+  text-align: center;
+  padding: 10px;
+  height: 50px;
+  margin-top: auto;
+  display: block;
+  font-size: 25px;
+  border-radius: 10px;
+  background-color: rgba(116, 243, 48, 0.4);
+  border: 3px solid rgba(116, 243, 48, 0.7);
+}
+
+.button:hover {
+  background-color: rgba(116, 243, 48, 0.2);
+}
+
