@@ -52,7 +52,7 @@ td {
   top: 50px;
   margin: 60px 20px;
   font-size: 30px;
-  word-wrap: break-word;
+  word-wrap: normal;
 }
 .button {
   text-align: center;
