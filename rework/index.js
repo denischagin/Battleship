@@ -4,6 +4,9 @@ const firstScreen = document.querySelector(".first-screen");
 const secondScreen = document.querySelector(".second-screen");
 let arrayShips = [];
 let countOfDecks = 0;
+const elementsFsText = document.querySelectorAll('.count-of-decks-fs')
+console.log(elementsFsText)
+
 
 const matrixFirstPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -105,6 +108,13 @@ function makeComma (matrix, i, k) {
   }
 }
 
+function printTextOnP (elementText) {
+  elementText[0].textContent = 1 - arrayShips.filter((el) => el === 4).length + ' шт. с 4 палубами'
+  elementText[1].textContent = 2 - arrayShips.filter((el) => el === 3).length + ' шт. с 3 палубами'
+  elementText[2].textContent = 3 - arrayShips.filter((el) => el === 2).length + ' шт. с 2 палубами'
+  elementText[3].textContent = 4 - arrayShips.filter((el) => el === 1).length + ' шт. с 1 палубами'
+}
+
 firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer)}
 
 function inputShips(e, matrix) {
@@ -125,8 +135,12 @@ function inputShips(e, matrix) {
     console.log(matrix)
     countOfDecks = 1
     arrayShips.push(countOfDecks)
+    printTextOnP(elementsFsText)
   // Если запятая
   } else if (matrix[i][k] === ',') {
+      if (countOfDecks === 4) {
+        return
+      }
       cell.style.backgroundColor = 'rgba(0, 38, 255, 0.313)'
       matrix[i][k] = 1
       makeDot(matrix, i, k)
@@ -134,7 +148,8 @@ function inputShips(e, matrix) {
       console.log(matrix)
       arrayShips.pop()
       countOfDecks += 1
-      arrayShips.push(countOfDecks )
+      arrayShips.push(countOfDecks)
+      printTextOnP(elementsFsText)
   } else  {
     return
   }
