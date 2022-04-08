@@ -6,13 +6,12 @@ const secondScreen = document.querySelector(".second-screen");
 const buttonClear = document.querySelector('.button1')
 const buttonNext = document.querySelector('.button')
 const buttonClear1 = document.querySelector('.button1-1')
+const buttonNext1 = document.querySelector('.button-1')
 console.log(buttonNext)
 let arrayShips = [];
 let countOfDecks = 0;
 const elementsFsText = document.querySelectorAll('.count-of-decks')
 const elementsScText = document.querySelectorAll('.count-of-decks-1')
-
-
 let matrixFirstPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,7 +24,6 @@ let matrixFirstPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
-
 let matrixSecondPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,10 +55,10 @@ function printField(table, screen) {
   }
 }
 
-function changeElementMatrixOn(matrix, value, valueNew) {
+function changeElementMatrixOn(matrix, valueOld, valueNew) {
   for (let i = 0; i < 10; i++) {
     for (let k = 0; k < 10; k++) {
-        if (matrix[i][k] === value) {
+        if (matrix[i][k] === valueOld) {
             matrix[i][k] = valueNew
         }
     }
@@ -121,24 +119,24 @@ function printTextOnP (elementText) {
   elementText[0].textContent =
     1 - arrayShips.filter((el) => el === 4).length >= 0
       ? 1 - arrayShips.filter((el) => el === 4).length + " шт. с 4 палубами"
-      : "много 4х палубных кораблей";
+      : "много 4х-палубных кораблей";
 
   elementText[1].textContent =
     2 - arrayShips.filter((el) => el === 3).length >= 0
       ? 2 - arrayShips.filter((el) => el === 3).length + " шт. с 3 палубами"
-      : "много 3х палубных кораблей";
+      : "много 3х-палубных кораблей";
 
   elementText[2].textContent =
     3 - arrayShips.filter((el) => el === 2).length >= 0
       ? 3 - arrayShips.filter((el) => el === 2).length + " шт. с 2 палубами"
-      : "много 2х палубных кораблей";
+      : "много 2х-палубных кораблей";
 
   elementText[3].textContent =
     4 - arrayShips.filter((el) => el === 1).length >= 0
       ? 4 - arrayShips.filter((el) => el === 1).length + " шт. с 1 палубой"
       : "много 1-палубных кораблей";
 }
-function clearing (matrix, table) {
+function clearing (matrix, table, el) {
   countOfDecks = 0
   arrayShips.length = 0
   changeElementMatrixOn(matrix, 1, 0)
@@ -149,7 +147,7 @@ function clearing (matrix, table) {
       table.children[i+1].children[k+1].style.backgroundColor = 'white'
     }
   }
-  printTextOnP (elementsFsText)
+  printTextOnP (el)
 }
 
 // Функция для нажатия на ячейку
@@ -192,10 +190,7 @@ function inputShips(e, matrix, el) {
   console.log(countOfDecks)
   console.log(arrayShips)
 }
-buttonClear.onclick = () => {
-  clearing(matrixFirstPlayer, firstTable)
-}
-
+buttonClear.onclick = () => clearing(matrixFirstPlayer, firstTable, elementsFsText)
 buttonNext.onclick = () => {
   if (4 - arrayShips.filter((el) => el === 1).length === 0 
   && 3 - arrayShips.filter((el) => el === 2).length === 0
@@ -208,12 +203,21 @@ buttonNext.onclick = () => {
     printField(secondTable ,secondScreen)
     countOfDecks = 0
     arrayShips.length = 0
-    secondTable.onclick = function(e) {inputShips(e, matrixSecondPlayer, elementsScText)}
-    buttonClear1.onclick = () => {
-      clearing(matrixSecondPlayer, secondTable)
-    }
+    printTextOnP(elementsScText)
 }
   
+}
+
+secondTable.onclick = (e) => inputShips(e, matrixSecondPlayer, elementsScText)
+buttonClear1.onclick = () => clearing(matrixSecondPlayer, secondTable, elementsScText)
+buttonNext1.onclick = (e) => {
+  if (4 - arrayShips.filter((el) => el === 1).length === 0 
+  && 3 - arrayShips.filter((el) => el === 2).length === 0
+  && 2 - arrayShips.filter((el) => el === 3).length === 0
+  && 1 - arrayShips.filter((el) => el === 4).length === 0
+  ) {
+    e.target.parentNode.remove()
+  }
 }
 firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer, elementsFsText)}
 printField(firstTable, firstScreen)
