@@ -44,17 +44,25 @@ h1 {
   transform: translate(-50%, 0);
   width: 1000px;
   margin-top: 100px;
+  height: 100%;
+
 }
 
 .second-table {
-  margin: 50px 100px;
+  margin: 100px 0px 20px 80px;
   position: absolute;
 }
 
 .second-screen {
-  display: inline-flex;
-  flex-direction: row;
-  word-spacing: 3px;
+  position: absolute;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, 0);
+  width: 1000px;
+  margin-top: 100px;
+  height: 100%;
+  display: none;
+
 }
 
 .text {
@@ -77,6 +85,25 @@ h1 {
 }
 
 .button1 {
+  position: absolute;
+  top: 30px;
+  left: 70%;
+  font-size: 25px;
+  border-radius: 10px;
+  padding: 5px;
+  border: 3px solid rgba(0, 38, 255, 0.39);
+}
+.button-1 {
+  position: absolute;
+  top: 30px;
+  left: 60%;
+  font-size: 25px;
+  border-radius: 10px;
+  padding: 5px;
+  border: 3px solid rgba(0, 38, 255, 0.39);
+}
+
+.button1-1 {
   position: absolute;
   top: 30px;
   left: 70%;
@@ -113,8 +140,3 @@ h1 {
   background-color: rgba(116, 243, 48, 0.2);
 } */
 
-
-
-.second-screen {
-  display: none;
-}
