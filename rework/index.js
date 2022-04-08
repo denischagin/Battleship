@@ -2,13 +2,13 @@ const firstTable = document.querySelector(".first-table");
 const arrayABC = ["К", "И","З","Ж","Е","Д","Г","В","Б","А"];
 const firstScreen = document.querySelector(".first-screen");
 const secondScreen = document.querySelector(".second-screen");
+const buttonClear = document.querySelector('.button1')
 let arrayShips = [];
 let countOfDecks = 0;
 const elementsFsText = document.querySelectorAll('.count-of-decks-fs')
-console.log(elementsFsText)
 
 
-const matrixFirstPlayer = [
+let matrixFirstPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -21,14 +21,7 @@ const matrixFirstPlayer = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-function coloringField(matrix, table) {
-  for (let i = 0; i < 11; i++) {
-    const tr = table.children[i]
-  }
-    for (let k = 0; k < 11; k++) {
-        const td = table.children[i].children[k]
-      }
-}
+let matrixSecondPlayer = Object.assign([], matrixFirstPlayer)
 
 function printField(table, screen) {
   firstScreen.style.display = 'flex'
@@ -109,14 +102,41 @@ function makeComma (matrix, i, k) {
 }
 
 function printTextOnP (elementText) {
-  elementText[0].textContent = 1 - arrayShips.filter((el) => el === 4).length + ' шт. с 4 палубами'
-  elementText[1].textContent = 2 - arrayShips.filter((el) => el === 3).length + ' шт. с 3 палубами'
-  elementText[2].textContent = 3 - arrayShips.filter((el) => el === 2).length + ' шт. с 2 палубами'
-  elementText[3].textContent = 4 - arrayShips.filter((el) => el === 1).length + ' шт. с 1 палубами'
+  elementText[0].textContent =
+    1 - arrayShips.filter((el) => el === 4).length >= 0
+      ? 1 - arrayShips.filter((el) => el === 4).length + " шт. с 4 палубами"
+      : "много 4х палубных кораблей";
+
+  elementText[1].textContent =
+    2 - arrayShips.filter((el) => el === 3).length >= 0
+      ? 2 - arrayShips.filter((el) => el === 3).length + " шт. с 3 палубами"
+      : "много 3х палубных кораблей";
+
+  elementText[2].textContent =
+    3 - arrayShips.filter((el) => el === 2).length >= 0
+      ? 3 - arrayShips.filter((el) => el === 2).length + " шт. с 2 палубами"
+      : "много 2х палубных кораблей";
+
+  elementText[3].textContent =
+    4 - arrayShips.filter((el) => el === 1).length >= 0
+      ? 4 - arrayShips.filter((el) => el === 1).length + " шт. с 1 палубой"
+      : "много 1-палубных кораблей";
+}
+function clearing (matrix, table) {
+  countOfDecks = 0
+  arrayShips.length = 0
+  changeElementMatrixOn(matrix, 1, 0)
+  changeElementMatrixOn(matrix, ',', 0)
+  changeElementMatrixOn(matrix, '.', 0)
+  for (let i = 0; i < 10; i++) {
+    for (let k = 0; k < 10; k++){
+      table.children[i+1].children[k+1].style.backgroundColor = 'white'
+    }
+  }
+  printTextOnP (elementsFsText)
 }
 
-firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer)}
-
+// Функция для нажатия на ячейку
 function inputShips(e, matrix) {
   let cell = e.target;
   if (cell.tagName.toLowerCase() != "td") return;
@@ -156,5 +176,9 @@ function inputShips(e, matrix) {
   console.log(countOfDecks)
   console.log(arrayShips)
 }
+buttonClear.onclick = () => {
+  clearing(matrixFirstPlayer, firstTable)
+}
 
+firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer)}
 printField(firstTable, firstScreen)
