@@ -1,3 +1,4 @@
+const screen = document.querySelector('.screen')
 const firstTable = document.querySelector(".first-table");
 const secondTable = document.querySelector(".second-table");
 const arrayABC = ["К", "И","З","Ж","Е","Д","Г","В","Б","А"];
@@ -119,22 +120,22 @@ function printTextOnP (elementText) {
   elementText[0].textContent =
     1 - arrayShips.filter((el) => el === 4).length >= 0
       ? 1 - arrayShips.filter((el) => el === 4).length + " шт. с 4 палубами"
-      : "много 4х-палубных кораблей";
+      : "много 4х-палубных";
 
   elementText[1].textContent =
     2 - arrayShips.filter((el) => el === 3).length >= 0
       ? 2 - arrayShips.filter((el) => el === 3).length + " шт. с 3 палубами"
-      : "много 3х-палубных кораблей";
+      : "много 3х-палубных";
 
   elementText[2].textContent =
     3 - arrayShips.filter((el) => el === 2).length >= 0
       ? 3 - arrayShips.filter((el) => el === 2).length + " шт. с 2 палубами"
-      : "много 2х-палубных кораблей";
+      : "много 2х-палубных";
 
   elementText[3].textContent =
     4 - arrayShips.filter((el) => el === 1).length >= 0
       ? 4 - arrayShips.filter((el) => el === 1).length + " шт. с 1 палубой"
-      : "много 1-палубных кораблей";
+      : "много 1-палубных";
 }
 function clearing (matrix, table, el) {
   countOfDecks = 0
@@ -144,7 +145,7 @@ function clearing (matrix, table, el) {
   changeElementMatrixOn(matrix, '.', 0)
   for (let i = 0; i < 10; i++) {
     for (let k = 0; k < 10; k++){
-      table.children[i+1].children[k+1].style.backgroundColor = 'white'
+      table.children[i+1].children[k+1].style.backgroundColor = '#ffffff'
     }
   }
   printTextOnP (el)
@@ -208,6 +209,24 @@ buttonNext.onclick = () => {
   
 }
 
+function playing () {
+  const screenPlaying = document.createElement('div')
+  const tableForPlaying1 = document.createElement('table')
+  const tableForPlaying2 = document.createElement('table')
+  const h1 = document.createElement('h1')
+  h1.textContent = 'Игра'
+
+  screenPlaying.classList.add('screen-for-playing')
+  screen.appendChild(screenPlaying)
+
+  screenPlaying.appendChild(h1)
+  screenPlaying.appendChild(tableForPlaying1)
+  screenPlaying.appendChild(tableForPlaying2)
+
+  printField(tableForPlaying1, screenPlaying)
+  printField(tableForPlaying2, screenPlaying)
+}
+
 secondTable.onclick = (e) => inputShips(e, matrixSecondPlayer, elementsScText)
 buttonClear1.onclick = () => clearing(matrixSecondPlayer, secondTable, elementsScText)
 buttonNext1.onclick = (e) => {
@@ -217,6 +236,7 @@ buttonNext1.onclick = (e) => {
   && 1 - arrayShips.filter((el) => el === 4).length === 0
   ) {
     e.target.parentNode.remove()
+    playing()
   }
 }
 firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer, elementsFsText)}
