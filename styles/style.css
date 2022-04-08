@@ -27,6 +27,10 @@ td {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: rgba(0, 38, 255, 0.15);
+}
+
 h1 {
   margin: 20px 70px;
   font-size: 40px;
