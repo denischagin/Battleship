@@ -45,33 +45,63 @@ function printField(table, screen) {
   }
 }
 
-function makeDot (matrix, i, k) {
-  if (k-1 >= 0 && i-1 >= 0 && matrix[i-1][k-1] === 0, ',') {
-    matrix[i-1][k-1] = '.'
-  }
-  if (k+1 >= 0 && i-1 >= 0 && matrix[i-1][k+1] === 0, ','){
-    matrix[i-1][k+1] = '.' 
-  }
-  if (k+1 >= 0 && i < 9 && matrix[i+1][k+1] === 0, ',') {
-    matrix[i+1][k+1] = '.'
-  }
-  if (k-1 >= 0 && i < 9 && matrix[i+1][k-1] === 0, ',') {
-    matrix[i+1][k-1] = '.'
+function changeElementMatrixOn(matrix, value, valueNew) {
+  for (let i = 0; i < 10; i++) {
+    for (let k = 0; k < 10; k++) {
+        if (matrix[i][k] === value) {
+            matrix[i][k] = valueNew
+        }
+    }
   }
 }
 
+function makeDot (matrix, i, k) {
+  if (matrix[i-1] !== undefined 
+    && matrix[i-1][k-1] !== undefined 
+    && matrix[i-1][k-1] !== undefined) {
+      matrix[i-1][k-1] = '.'
+    }
+  if (matrix[i+1] !== undefined 
+    && matrix[i+1][k-1] !== undefined 
+    && matrix[i+1][k-1] !== undefined) {
+      matrix[i+1][k-1] = '.'
+    }
+  if (matrix[i-1] !== undefined 
+    && matrix[i-1][k+1] !== undefined 
+    && matrix[i-1][k+1] !== undefined) {
+      matrix[i-1][k+1] = '.'
+    }
+  if (matrix[i+1] !== undefined 
+    && matrix[i+1][k+1] !== undefined 
+    && matrix[i+1][k+1] !== undefined) {
+      matrix[i+1][k+1] = '.'
+    }
+}
+
 function makeComma (matrix, i, k) {
-  if (k-1 >= 0 && matrix[i][k-1] === 0) {
+  if (matrix[i][k-1] !== undefined
+    && matrix[i][k-1] !== 1
+    && matrix[i][k-1] !== '.'
+    ) {
     matrix[i][k-1] = ','
   }
-  if (k+1 >= 0 && matrix[i][k+1] === 0) {
-    matrix[i][k+1] = ',' 
+  if (matrix[i][k+1] !== undefined
+    && matrix[i][k+1] !== 1
+    && matrix[i][k+1] !== '.'
+    ) {
+    matrix[i][k+1] = ','
   }
-  if (i < 9 && matrix[i+1][k] === 0) {
-    matrix[i+1][k] = ','
-  }
-  if (i > 1 && matrix[i-1][k] === 0) {
+  if (matrix[i-1] !== undefined
+    && matrix[i-1][k] !== 1
+    && matrix[i-1][k] !== '.' 
+    ) {
     matrix[i-1][k] = ','
+  }
+  if (matrix[i+1] !== undefined
+    && matrix[i+1][k] !== 1
+    && matrix[i+1][k] !== '.'
+    ) {
+    matrix[i+1][k] = ','
   }
 }
 
@@ -80,18 +110,21 @@ firstTable.onclick = function(e) {inputShips(e, matrixFirstPlayer)}
 function inputShips(e, matrix) {
   let cell = e.target;
   if (cell.tagName.toLowerCase() != "td") return;
-  console.log(cell)
   let i = cell.parentNode.rowIndex - 1;
   let k = cell.cellIndex - 1;
-  console.log(i, k)
   // Если пустая клетка
   if (matrix[i][k] === 0) {
     cell.style.backgroundColor = 'rgba(0, 38, 255, 0.313)'
     matrix[i][k] = 1
+    if (countOfDecks != 0) {
+      // Заменяет запятые на точки
+      changeElementMatrixOn(matrix, ',', '.')
+    }
     makeDot(matrix, i, k)
     makeComma(matrix, i, k)
     console.log(matrix)
-    
+    countOfDecks = 1
+    arrayShips.push(countOfDecks)
   // Если запятая
   } else if (matrix[i][k] === ',') {
       cell.style.backgroundColor = 'rgba(0, 38, 255, 0.313)'
@@ -99,9 +132,14 @@ function inputShips(e, matrix) {
       makeDot(matrix, i, k)
       makeComma(matrix, i, k)
       console.log(matrix)
+      arrayShips.pop()
+      countOfDecks += 1
+      arrayShips.push(countOfDecks )
   } else  {
     return
   }
+  console.log(countOfDecks)
+  console.log(arrayShips)
 }
 
 printField(firstTable, firstScreen)

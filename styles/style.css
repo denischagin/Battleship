@@ -68,7 +68,7 @@ td {
   font-size: 24px;
   word-wrap: normal;
 }
-.button {
+/* .button {
   height: 50px; 
   position: absolute;
   left: 450px;
@@ -93,7 +93,7 @@ td {
 }
 .button1 :hover {
   background-color: rgba(116, 243, 48, 0.2);
-}
+} */
 
 
 
