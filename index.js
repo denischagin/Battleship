@@ -233,7 +233,9 @@ function playing() {
 
   printField(tableForPlaying1, screenPlaying);
   printField(tableForPlaying2, screenPlaying);
+
   changeElementMatrixOn(matrixFirstPlayer, ',', '.')
+  setTimeout(() => {alert('Начинает ходить второй игрок')}, 500)
   const playingNow = (matrix, i, k, count, cell) => {
     if (matrix[i][k] === 1) {
         if (
@@ -266,6 +268,9 @@ function playing() {
           }
           if (count === 0) {
             alert('Убил')
+            if (isFirstPlayer === true) {
+              countShipsPlayer1++
+            } else {countShipsPlayer2++}
           } else {
             alert('Попал')
           } 
@@ -298,12 +303,18 @@ function playing() {
           }
           if (count === 0) {
             alert('Убил')
+            if (isFirstPlayer === true) {
+              countShipsPlayer1++
+            } else {countShipsPlayer2++}
           } else {
             alert('Попал')
           } 
         }
         else {
           alert('Убил')
+          if (isFirstPlayer === true) {
+            countShipsPlayer1++
+          } else {countShipsPlayer2++}
         }
         cell.textContent = "X";
         matrix[i][k] = "X";
@@ -314,6 +325,14 @@ function playing() {
         alert('Промах')
       } 
       console.table(matrix);
+      if (countShipsPlayer2 === 10) {
+        alert('Победил второй игрок')
+        document.location.reload()
+      }else if (countShipsPlayer1 === 10) {
+        alert('Победил первый игрок игрок')
+        document.location.reload()
+      }
+
   }
 
   console.table(matrixFirstPlayer);
@@ -326,6 +345,7 @@ function playing() {
     let count = 0
     if (isFirstPlayer === true) {
       playingNow(matrixFirstPlayer, i, k, count, cell)
+      
     }
   };
   tableForPlaying2.onclick = (e) => {
@@ -336,6 +356,7 @@ function playing() {
     let count = 0
     if (isFirstPlayer === false) {
       playingNow(matrixSecondPlayer, i, k, count, cell)
+      
     }
   };
 }
@@ -358,6 +379,9 @@ buttonNext1.onclick = (e) => {
 firstTable.onclick = function (e) {
   inputShips(e, matrixFirstPlayer, elementsFsText);
 };
+
+let countShipsPlayer1 = 0
+let countShipsPlayer2 = 0
 
 printField(firstTable, firstScreen);
 isFirstPlayer = true;
