@@ -235,7 +235,7 @@ function playing() {
   printField(tableForPlaying2, screenPlaying);
 
   changeElementMatrixOn(matrixFirstPlayer, ',', '.')
-  setTimeout(() => {alert('Начинает ходить второй игрок')}, 500)
+  setTimeout(() => {alert('Начинает ходить второй игрок')}, 50)
   const playingNow = (matrix, i, k, count, cell) => {
     if (matrix[i][k] === 1) {
         if (
@@ -251,28 +251,25 @@ function playing() {
           (matrix[i][k + 1]
             ? matrix[i][k + 1] === 1
             : false)) {
-          console.log("horisontal");
           let j = i
           let l = k
           while (matrix[j][l] !== '.' && matrix[j][l] !== undefined) {
             l = l-1
             if (matrix[j][l] === 1) {count++}
-            console.log(matrix[j][k])
           }
           j = i
           l = k
           while (matrix[j][l] !== '.' && matrix[j][l] !== undefined) {
             l = l+1
             if (matrix[j][l] === 1) {count++}
-            console.log(matrix[j][k])
           }
           if (count === 0) {
-            alert('Убил')
+            setTimeout(() => {alert('Убил')}, 50) 
             if (isFirstPlayer === true) {
               countShipsPlayer1++
             } else {countShipsPlayer2++}
           } else {
-            alert('Попал')
+            setTimeout(() => {alert('Попал')}, 50) 
           } 
         } else if (
           (matrix[i + 1]
@@ -288,30 +285,27 @@ function playing() {
         ) {
           let j = i
           let l = k
-          console.log(j, k)
           while (matrix[j-1] !== undefined && matrix[j][l] !== '.') {
             j = j-1
             if (matrix[j][l] === 1) {count++}
-            console.log(matrix[j][k])
           }
           j = i+1
           l = k
           while (matrix[j] !== undefined && matrix[j][l] !== '.' ) {
             if (matrix [j][l] === 1) {count++}
             j = j+1
-            console.log(j, l)
           }
           if (count === 0) {
-            alert('Убил')
+            setTimeout(() => {alert('Убил')}, 50) 
             if (isFirstPlayer === true) {
               countShipsPlayer1++
             } else {countShipsPlayer2++}
           } else {
-            alert('Попал')
+            setTimeout(() => {alert('Попал')}, 50) 
           } 
         }
         else {
-          alert('Убил')
+          setTimeout(() => {alert('Убил')}, 50) 
           if (isFirstPlayer === true) {
             countShipsPlayer1++
           } else {countShipsPlayer2++}
@@ -319,12 +313,11 @@ function playing() {
         cell.textContent = "X";
         matrix[i][k] = "X";
       } else if (matrix[i][k] === 0 || matrix[i][k] === '.') {
-        cell.textContent = ".";
+        cell.style.background = "rgba(0, 38, 255, 0.213)";
         matrix[i][k] = ".";
         isFirstPlayer = !isFirstPlayer;
         alert('Промах')
       } 
-      console.table(matrix);
       if (countShipsPlayer2 === 10) {
         alert('Победил второй игрок')
         document.location.reload()
@@ -335,8 +328,6 @@ function playing() {
 
   }
 
-  console.table(matrixFirstPlayer);
-  console.table(matrixSecondPlayer);
   tableForPlaying1.onclick = (e) => {
     let cell = e.target;
     if (cell.tagName.toLowerCase() != "td") return;
@@ -385,3 +376,5 @@ let countShipsPlayer2 = 0
 
 printField(firstTable, firstScreen);
 isFirstPlayer = true;
+// setTimeout(() => {alert('Игра "Морской бой \n Данная игра предусмотрена на двух игроков \n Чтобы ввести корбаль нужно щелкать ЛКМ по ячейке таблицы \n Если вы ввели что то неправильно, то нажмите кнопку "Очистить" \n Чтобы ввести корбали для второго игрока нажмите на кнопку "Далее"')
+// }, 50)
